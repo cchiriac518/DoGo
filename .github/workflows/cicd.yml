@@ -32,8 +32,8 @@ jobs:
 
   increment-version:
     runs-on: ubuntu-latest
-    needs: [job1, job2]
-    if: ${{ success() && (needs.job1.result == 'success' || needs.job2.result == 'success') }}
+    needs: [${{ github.event.inputs.job }}]
+    if: ${{ success() }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
