@@ -57,12 +57,12 @@ jobs:
           echo "APP_NAME=$APP_NAME" > version.txt
           echo "APP_VERSION=$NEW_VERSION" >> version.txt
 
-          # Set the new version as an output
-          echo "::set-output name=new_version::$NEW_VERSION"
+          # Save NEW_VERSION to an environment file
+          echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
 
       - name: Commit and push new version
         env:
-          NEW_VERSION: ${{ steps.increment_version.outputs.new_version }}
+          NEW_VERSION: ${{ env.NEW_VERSION }}
         run: |
           git config user.name "GitHub actions"
           git config user.email "noreply@github.com"
